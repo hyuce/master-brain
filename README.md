@@ -12,6 +12,15 @@ npx skills add hyuce/master-brain
 
 Works with Claude Code, Cursor, Codex, GitHub Copilot, Windsurf, and other agents supported by [skills.sh](https://skills.sh).
 
+## Security
+
+This skill contains only two files: `SKILL.md` (the methodology) and `README.md` (this file). Both are plain markdown. **No executable code, no scripts, no network calls, no obfuscation, no data exfiltration, no prompt-injection patterns.** The `npx skills add` command copies these files to your agent's skills directory; the agent reads them as instructions, nothing more.
+
+Independent audits:
+
+- [Gen Agent Trust Hub](https://skills.sh/hyuce/master-brain/master-brain/security/agent-trust-hub) — **Pass / Safe**. Verified the skill is a prompt-based methodology with no executable content.
+- [Snyk](https://skills.sh/hyuce/master-brain/master-brain/security/snyk) — **E005 flag (false positive)**. Snyk's heuristic flags any `npx`-style install command from a third-party skill host as suspicious by pattern, regardless of skill content. The actual skill files contain no executable code.
+
 ## What this skill does
 
 Encodes a rigorous reasoning methodology: Observation → Hypothesis → Evidence → Conclusion → Verification. The loop is non-skippable, processes each stage as a distinct unit of work, and loops back to Observation if Verification fails. Conclusions carry a severity label, a confidence level, and a concrete recommendation.
