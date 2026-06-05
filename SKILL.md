@@ -410,6 +410,26 @@ Agents will try to skip the loop. Pre-empt the common excuses:
 | Skipping the bias check | Run the 5-question check before issuing the Conclusion |
 | Writing recommendations outside the "should/must" form | Use "should be done," "must be ensured" — concrete and directive |
 
+## Theoretical Foundations
+
+Each component of this skill traces to established work in epistemology, decision theory, and cognitive science. The skill itself is an applied synthesis encoded as a procedural checklist for AI agents — it is not a peer-reviewed work, but every component has a documented source.
+
+| Component | Foundation |
+|-----------|------------|
+| 5-stage loop (Obs → Hyp → Ev → Conc → Ver) | Popper, *The Logic of Scientific Discovery* (1934) — falsificationism; Deming / PDCA cycle (1950) |
+| Loop-back on failure | Popper — conjecture and refutation; Lewin, *Action Research* (1946); Schön, *The Reflective Practitioner* (1983) |
+| Verification = what would falsify this | Popper — falsifiability as the criterion that distinguishes science from non-science |
+| ≥ 2 hypotheses per observation | Feyerabend, *Against Method* (1975) — methodological pluralism; Toulmin, *The Uses of Argument* (1958) |
+| Per-claim evidence annotation | Toulmin — grounds / warrant / backing / qualifier; Goldman, "What is Justified Belief?" (1979) — reliabilism |
+| Weakest-link confidence rule | Argüman zincirleme mantığı; Sosa — safety condition for knowledge |
+| Severity (urgency × direction) | CVSS (Common Vulnerability Scoring System); FMEA — risk = likelihood × impact |
+| Confidence (breadth × quality) | Bayesian belief updating; source criticism in historiography |
+| Calibrating rigor by reversibility | Bezos, 2015 shareholder letter — Type 1 / Type 2 decisions; Myers & Majd — real options theory (1990) |
+| Adversarial verification | Red team / devil's advocate methodology; diyalojik akıl yürütme |
+| Cognitive bias check (5 biases) | Kahneman & Tversky, heuristics-and-biases program (1974–); Stanovich & West, dual-process theory (2000); Kahneman, *Thinking, Fast and Slow* (2011) |
+| Anti-rationalization safeguards | Cialdini, *Influence* (1984) — persuasion principles; Kahneman — WYSIATI ("what you see is all there is") |
+| "Violating the letter violates the spirit" | Kant — deontological ethics; rule-based ethical formalism |
+
 ## Quick Reference
 
 | Situation | Action |

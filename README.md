@@ -106,6 +106,10 @@ If neither is supplied, Evidence and Verification fall back to logical consisten
 
 If the loop feels too rigid or slow, that is the skill working. The friction is the point — it prevents the kind of premature conclusion that produces bad analysis. See the **Rationalization Table** in `SKILL.md` for the excuses the skill is designed to resist.
 
+## Theoretical foundations
+
+Each component of the skill traces to established work in epistemology, decision theory, and cognitive science — Popper's falsificationism, Toulmin's argumentation model, Kahneman & Tversky's heuristics-and-biases program, and others. See the **Theoretical Foundations** section in `SKILL.md` for the full component-to-source mapping.
+
 ## Related
 
 - `SKILL.md` — full skill content with the 5-stage loop, Calibrating Rigor, Worked Examples, Severity / Urgency Guidance, Confidence Level, Combining table, Bias Check, Red Flags, and Common Mistakes.
