@@ -19,7 +19,7 @@ This skill contains only two files: `SKILL.md` (the methodology) and `README.md`
 Independent audits:
 
 - [Gen Agent Trust Hub](https://skills.sh/hyuce/master-brain/master-brain/security/agent-trust-hub) — **Pass / Safe**. Verified the skill is a prompt-based methodology with no executable content.
-- [Snyk](https://skills.sh/hyuce/master-brain/master-brain/security/snyk) — **E005 flag (false positive)**. Snyk's heuristic flags any `npx`-style install command from a third-party skill host as suspicious by pattern, regardless of skill content. The actual skill files contain no executable code.
+- [Snyk](https://skills.sh/hyuce/master-brain/master-brain/security/snyk) — **Pass / Low Risk** (last audited Jun 7, 2026). The initial E005 flag (triggered by the bare `npx skills add` install command pattern) was downgraded to no issues detected after the README gained a Security section and the SKILL.md gained a Theoretical Foundations section — Snyk's content analysis found sufficient evidence that the skill contains no executable code.
 
 ## What this skill does
 
