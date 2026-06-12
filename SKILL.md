@@ -1,6 +1,6 @@
 ---
 name: master-brain
-version: "1.1.1"
+version: "1.1.2"
 description: Use when inferences or evaluations need to be evidence-backed; when prior reasoning felt premature or conclusion-first; when analyzing a document, claim, decision, or argument; when quality control of a prior analysis is needed; or when a judgment must hold up under adversarial scrutiny. Do NOT use for simple lookups, single-step operations, or routine tasks without a judgment component.
 ---
 
@@ -134,6 +134,7 @@ Test the conclusion adversarially. Apply intellectual honesty.
 
 **Pass:** Loop ends. Present the conclusion.
 **Fail:** Return to Observation with the new evidence. Increment the loop counter.
+**If no new evidence is available:** Exit with the current confidence level; document the limitation.
 
 ### Stage Markers
 
