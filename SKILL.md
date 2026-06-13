@@ -1,6 +1,6 @@
 ---
 name: master-brain
-version: "1.1.2"
+version: "1.2.0"
 description: Use when inferences or evaluations need to be evidence-backed; when prior reasoning felt premature or conclusion-first; when analyzing a document, claim, decision, or argument; when quality control of a prior analysis is needed; or when a judgment must hold up under adversarial scrutiny. Do NOT use for simple lookups, single-step operations, or routine tasks without a judgment component.
 ---
 
@@ -175,6 +175,30 @@ Is the decision reversible at low cost?
 - **Type 1:** Force ≥ 2 hypotheses. Spend extra effort in Evidence. Run the bias check explicitly. Do not issue a recommendation unless confidence is **Medium or High**.
 - **Type 2:** Run the standard loop. Document the reversibility so future readers know why speed was prioritized over depth.
 - **Trivial:** Skip Hypothesis and Evidence only if the cost of being wrong is also trivial. Otherwise run the full loop.
+
+## Assumption Audit
+
+Before running the loop, identify what the analysis takes for granted. Hidden assumptions cause more errors than flawed logic.
+
+**Process:**
+
+1. List assumptions the analysis framework depends on — what must be true for the framework to be valid?
+2. Classify each by risk:
+   - **High:** conclusion reverses if assumption is false.
+   - **Medium:** conclusion weakens but does not reverse.
+   - **Low:** negligible impact on the conclusion.
+3. Mark any assumption testable during Evidence as **testable**.
+4. During Evidence, verify every testable assumption as a claim with its own confidence level.
+
+| # | Assumption | Risk | Testable |
+|---|-----------|------|----------|
+| 1 | Data source is current and authoritative | High | Yes |
+| 2 | Stakeholder's problem description is complete | Medium | Limited |
+| 3 | No regulatory change pending | Low | No |
+
+**If a High-risk assumption is unverified by the end of Evidence:** it counts as a load-bearing claim with **Confidence: Low**. The weakest-link rule applies automatically. Document it:
+
+*"Therefore, **Note** has been recorded (conclusion assumes [X]; this could not be verified).*
 
 ## Worked Examples
 
@@ -374,6 +398,7 @@ If any of these occur, **cancel the current loop and restart from Observation:**
 - Cross-references not verified → **Return to Observation, locate the referenced section and confirm it exists.**
 - A single paragraph mixes a finding with its recommendation → **Return to Observation, separate them.**
 - A single paragraph covers more than one topic → **Return to Observation, split into separate paragraphs.**
+- High-risk assumption unverified and not acknowledged in the conclusion → **Return to Observation, document the assumption.**
 
 **All of these mean: cancel the loop, restart from Observation.**
 
@@ -398,6 +423,7 @@ Agents will try to skip the loop. Pre-empt the common excuses:
 
 | Mistake | Fix |
 |---------|-----|
+| Treating the analysis framework as given without checking its premises | Run the Assumption Audit before Observation |
 | Skipping the loop and writing the conclusion directly | Run all 5 stages for every analysis |
 | Adding interpretation during Observation | Observation is raw data; interpretation belongs in Hypothesis |
 | Stopping at a single hypothesis | Generate ≥ 2 hypotheses; force alternative explanations |
@@ -448,3 +474,4 @@ Each component of this skill traces to established work in epistemology, decisio
 | Red Flag triggered | Cancel the loop, restart from Observation |
 | Verification failed | Return to Observation, run the loop again with new evidence |
 | No domain rules file available | Construct the rule set from the user's stated requirements at the start |
+| Unstated assumptions to audit | Run the Assumption Audit; verify testable ones in Evidence |

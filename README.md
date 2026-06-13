@@ -2,7 +2,7 @@
 
 [![skills.sh](https://skills.sh/b/hyuce/master-brain)](https://skills.sh/hyuce/master-brain)
 
-A structured-reasoning skill for AI agents. Forces every analysis, evaluation, and judgment to pass through a mandatory 5-stage loop with verification, preventing premature conclusions and skipped steps. Includes calibration for decision reversibility, confidence levels, and a cognitive bias check.
+A structured-reasoning skill for AI agents. Forces every analysis, evaluation, and judgment to pass through a mandatory 5-stage loop with verification, preventing premature conclusions and skipped steps. Includes an assumption audit, calibration for decision reversibility, confidence levels, and a cognitive bias check.
 
 ## Install
 
@@ -67,6 +67,12 @@ Before running the loop, classify the decision:
 
 The skill scales the loop depth to match the stakes.
 
+## Assumption audit
+
+Before the loop, identify what the analysis takes for granted. List assumptions, classify each by risk (High: reverses the conclusion / Medium: weakens it / Low: negligible), and mark which ones are testable. Testable assumptions become claims in the Evidence stage with their own confidence levels.
+
+**Unverified High-risk assumptions** count as load-bearing claims with **Confidence: Low** — the weakest-link rule applies automatically, forcing the conclusion to acknowledge the gap.
+
 ## Severity, direction, and confidence
 
 Every conclusion carries three orthogonal labels:
@@ -81,10 +87,11 @@ Format: *"Therefore, **[Major Gap]** has been identified. **Confidence: High**."
 
 1. Load the skill: read `SKILL.md`.
 2. Classify the decision: Type 1 / Type 2 / Trivial.
-3. State the task and the rule set in scope (or note that no rule set is available).
-4. For each stage, emit a marker (tool call, section header, or numbered item).
-5. On Verification pass: present the conclusion with `[Urgency] [Direction]` label + confidence + recommendation.
-6. On Verification fail: return to Observation and run the loop again.
+3. Run the Assumption Audit: list, classify, and mark testable assumptions.
+4. State the task and the rule set in scope (or note that no rule set is available).
+5. For each stage, emit a marker (tool call, section header, or numbered item).
+6. On Verification pass: present the conclusion with `[Urgency] [Direction]` label + confidence + recommendation.
+7. On Verification fail: return to Observation and run the loop again.
 
 ## Worked examples
 
