@@ -100,6 +100,8 @@ Two examples are inlined in `SKILL.md`:
 1. **Database choice** — full 5-stage loop on a Postgres-vs-Mongo decision, ending with two findings: a **Note** (the data model fits Postgres) and a **Strength** (the team's 3-year Postgres experience is a competitive capability), both confidence High.
 2. **Blog post accuracy review** — verification of a single empirical claim, ending with **Major Gap**, confidence High, and a rephrase recommendation.
 
+A comprehensive capability demonstration is available in **`test.md`** — a single self-contained scenario (SaaS startup: AWS vs. colocation migration) that exercises every feature of the skill: Calibrating Rigor, Assumption Audit, the full 5-stage loop with per-claim confidence annotations, weakest-link rule, adversarial Verification, a loop-back simulation with the no-new-evidence exit, and the Cognitive Bias Check.
+
 ## Customization
 
 The Evidence and Verification stages need a rule set. Two options:
@@ -120,3 +122,4 @@ Each component of the skill traces to established work in epistemology, decision
 ## Related
 
 - `SKILL.md` — full skill content with the 5-stage loop, Calibrating Rigor, Worked Examples, Severity / Urgency Guidance, Confidence Level, Combining table, Bias Check, Red Flags, and Common Mistakes.
+- `test.md` — end-to-end capability demonstration covering all skill features in a single self-contained scenario.
