@@ -1,5 +1,7 @@
 # master-brain
 
+[![TomeVault: Silver](https://tomevault.io/api/badge/v1/grade/hyuce/master-brain)](https://tomevault.io/tome/hyuce/master-brain) [![TomeVault installs](https://tomevault.io/api/badge/v1/installs/hyuce)](https://tomevault.io/profile/hyuce)
+
 [![skills.sh](https://skills.sh/b/hyuce/master-brain)](https://skills.sh/hyuce/master-brain)
 
 A structured-reasoning skill for AI agents. Forces every analysis, evaluation, and judgment to pass through a mandatory 5-stage loop with verification, preventing premature conclusions and skipped steps. Includes an assumption audit, calibration for decision reversibility, confidence levels, and a cognitive bias check.
