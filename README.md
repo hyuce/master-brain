@@ -4,7 +4,7 @@
 
 [![skills.sh](https://skills.sh/b/hyuce/master-brain)](https://skills.sh/hyuce/master-brain)
 
-A structured-reasoning skill for AI agents. Forces every analysis, evaluation, and judgment to pass through a mandatory 5-stage loop with verification, preventing premature conclusions and skipped steps. Includes an assumption audit, calibration for decision reversibility, confidence levels, and a cognitive bias check.
+A structured-reasoning skill for AI agents. Forces every analysis, evaluation, and judgment to pass through a mandatory 5-stage loop with verification, preventing premature conclusions and skipped steps. Includes an assumption audit, calibration for decision reversibility, confidence levels, a cognitive bias check, and a formal fallacy check.
 
 ## Install
 
@@ -72,7 +72,7 @@ OBSERVATION → HYPOTHESIS → EVIDENCE → CONCLUSION → VERIFICATION
 | Hypothesis | What could it mean? | ≥ 2 candidate explanations |
 | Evidence | What supports/refutes each? | Cited facts (each annotated with confidence + source quality) |
 | Conclusion | What is the final judgment? | `[Urgency] [Direction]` label + confidence level + recommendation |
-| Verification | What would falsify this? | Pass / loop-back decision (includes bias check) |
+| Verification | What would falsify this? | Pass / loop-back decision (includes bias check + fallacy check) |
 
 Each stage is a distinct, demarcated unit.
 
@@ -84,7 +84,7 @@ Each stage is a distinct, demarcated unit.
 
 Before running the loop, classify the decision:
 
-- **Irreversible (Type 1):** one-way door. Run the full loop, run the bias check explicitly, require **Medium or High** confidence before issuing a recommendation. Examples: choosing a database, signing a contract, deleting production data.
+- **Irreversible (Type 1):** one-way door. Run the full loop, run the bias check and fallacy check explicitly, require **Medium or High** confidence before issuing a recommendation. Examples: choosing a database, signing a contract, deleting production data.
 - **Reversible (Type 2):** two-way door. Run the standard loop, accept that speed matters. Examples: refactoring a function, drafting a document.
 - **Trivial:** Observation + Conclusion may suffice; document the abbreviated path. Example: renaming a variable, picking a log format.
 
@@ -140,9 +140,9 @@ If the loop feels too rigid or slow, that is the skill working. The friction is 
 
 ## Theoretical foundations
 
-Each component of the skill traces to established work in epistemology, decision theory, and cognitive science — Popper's falsificationism, Toulmin's argumentation model, Kahneman & Tversky's heuristics-and-biases program, and others. See the **Theoretical Foundations** section in `SKILL.md` for the full component-to-source mapping.
+Each component of the skill traces to established work in epistemology, decision theory, cognitive science, and informal logic. Every source is annotated with a DOI and specific section reference for verifiability. See the **Theoretical Foundations** section in `SKILL.md` for the full component-to-source mapping.
 
 ## Related
 
-- `SKILL.md` — full skill content with the 5-stage loop, Calibrating Rigor, Worked Examples, Severity / Urgency Guidance, Confidence Level, Combining table, Bias Check, Red Flags, and Common Mistakes.
+- `SKILL.md` — full skill content with the 5-stage loop, Calibrating Rigor, Worked Examples, Severity / Urgency Guidance, Confidence Level, Combining table, Bias Check, Fallacy Check, Red Flags, and Common Mistakes.
 - `test.md` — end-to-end capability demonstration covering all skill features in a single self-contained scenario.

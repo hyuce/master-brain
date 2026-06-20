@@ -1,6 +1,6 @@
 ---
 name: master-brain
-version: "1.2.0"
+version: "1.3.0"
 description: Use when inferences or evaluations need to be evidence-backed; when prior reasoning felt premature or conclusion-first; when analyzing a document, claim, decision, or argument; when quality control of a prior analysis is needed; or when a judgment must hold up under adversarial scrutiny. Do NOT use for simple lookups, single-step operations, or routine tasks without a judgment component.
 ---
 
@@ -131,6 +131,7 @@ Test the conclusion adversarially. Apply intellectual honesty.
 - Check the conclusion against every domain rule in scope.
 - Run the rule-by-rule checklist (if a domain rules file is in use).
 - Run the cognitive bias check (see below).
+- Run the formal fallacy check (see below).
 
 **Pass:** Loop ends. Present the conclusion.
 **Fail:** Return to Observation with the new evidence. Increment the loop counter.
@@ -172,7 +173,7 @@ Is the decision reversible at low cost?
 
 **Implications:**
 
-- **Type 1:** Force ≥ 2 hypotheses. Spend extra effort in Evidence. Run the bias check explicitly. Do not issue a recommendation unless confidence is **Medium or High**.
+- **Type 1:** Force ≥ 2 hypotheses. Spend extra effort in Evidence. Run the bias check and fallacy check explicitly. Do not issue a recommendation unless confidence is **Medium or High**.
 - **Type 2:** Run the standard loop. Document the reversibility so future readers know why speed was prioritized over depth.
 - **Trivial:** Skip Hypothesis and Evidence only if the cost of being wrong is also trivial. Otherwise run the full loop.
 
@@ -384,6 +385,22 @@ Run this short protocol before issuing the Conclusion, and again during Verifica
 
 If any check fails, return to Stage 3 (Evidence) and re-collect.
 
+## Formal Fallacy Check
+
+Run alongside the Cognitive Bias Check before issuing the Conclusion, and again during Verification.
+
+| Fallacy | Self-check | If failed |
+|---------|------------|-----------|
+| **Affirming the consequent** | If P→Q and Q is true, did I conclude P without checking alternative antecedents? | Return to Stage 3, test whether other causes could produce the same effect. |
+| **Denying the antecedent** | If P→Q and P is false, did I conclude ¬Q? | Return to Stage 3, check whether Q could still hold through other paths. |
+| **False dilemma** | Did I frame the options as A-or-B when A, B, C, ... exist? | Return to Stage 2, generate at least one alternative beyond the binary. |
+| **Circular reasoning** | Does my evidence assume the conclusion it is meant to prove? | Return to Stage 3, find independent evidence that does not presuppose the claim. |
+| **Straw man** | Am I attacking a weaker version of the opposing position? | Return to Stage 1, restate the opposing position in its strongest form. |
+| **Appeal to authority** | Am I citing an authority outside their domain, or without corroborating evidence? | Return to Stage 3, gather domain-specific evidence independent of the authority. |
+| **Correlation ≠ causation** | Am I inferring causation from correlation alone? | Return to Stage 3, identify confounders and test directionality. |
+
+If any check fails, return to Stage 3 (Evidence) and re-collect.
+
 ## Red Flags — STOP and Restart the Loop
 
 If any of these occur, **cancel the current loop and restart from Observation:**
@@ -394,6 +411,7 @@ If any of these occur, **cancel the current loop and restart from Observation:**
 - Recommendation missing, or not in "should/must" form → **Return to Observation, formulate a concrete recommendation.**
 - Verification marked "passed" without running the full rule check → **Return to Observation, re-run checklist item by item.**
 - Verification marked "passed" without running the bias check → **Return to Observation, run the bias check.**
+- Verification marked "passed" without running the fallacy check → **Return to Observation, run the fallacy check.**
 - Personal language used ("I think," "in my opinion") → **Return to Observation, rewrite in objective voice.**
 - Cross-references not verified → **Return to Observation, locate the referenced section and confirm it exists.**
 - A single paragraph mixes a finding with its recommendation → **Return to Observation, separate them.**
@@ -435,6 +453,7 @@ Agents will try to skip the loop. Pre-empt the common excuses:
 | Skipping per-claim confidence in Evidence | Annotate each load-bearing claim with High / Medium / Low + a source-quality note; without this, the weakest-link rule has no chain to walk |
 | Issuing a Type 1 recommendation with Low confidence | For irreversible decisions, refuse to recommend until confidence is Medium or High |
 | Skipping the bias check | Run the 5-question check before issuing the Conclusion |
+| Skipping the fallacy check | Run the 7-question check alongside the bias check |
 | Writing recommendations outside the "should/must" form | Use "should be done," "must be ensured" — concrete and directive |
 
 ## Theoretical Foundations
@@ -443,19 +462,20 @@ Each component of this skill traces to established work in epistemology, decisio
 
 | Component | Foundation |
 |-----------|------------|
-| 5-stage loop (Obs → Hyp → Ev → Conc → Ver) | Popper, *The Logic of Scientific Discovery* (1934) — falsificationism; Deming / PDCA cycle (1950) |
-| Loop-back on failure | Popper — conjecture and refutation; Lewin, *Action Research* (1946); Schön, *The Reflective Practitioner* (1983) |
-| Verification = what would falsify this | Popper — falsifiability as the criterion that distinguishes science from non-science |
-| ≥ 2 hypotheses per observation | Feyerabend, *Against Method* (1975) — methodological pluralism; Toulmin, *The Uses of Argument* (1958) |
-| Per-claim evidence annotation | Toulmin — grounds / warrant / backing / qualifier; Goldman, "What is Justified Belief?" (1979) — reliabilism |
-| Weakest-link confidence rule | Argüman zincirleme mantığı; Sosa — safety condition for knowledge |
-| Severity (urgency × direction) | CVSS (Common Vulnerability Scoring System); FMEA — risk = likelihood × impact |
-| Confidence (breadth × quality) | Bayesian belief updating; source criticism in historiography |
-| Calibrating rigor by reversibility | Bezos, 2015 shareholder letter — Type 1 / Type 2 decisions; Myers & Majd — real options theory (1990) |
-| Adversarial verification | Red team / devil's advocate methodology; diyalojik akıl yürütme |
-| Cognitive bias check (5 biases) | Kahneman & Tversky, heuristics-and-biases program (1974–); Stanovich & West, dual-process theory (2000); Kahneman, *Thinking, Fast and Slow* (2011) |
-| Anti-rationalization safeguards | Cialdini, *Influence* (1984) — persuasion principles; Kahneman — WYSIATI ("what you see is all there is") |
-| "Violating the letter violates the spirit" | Kant — deontological ethics; rule-based ethical formalism |
+| 5-stage loop (Obs → Hyp → Ev → Conc → Ver) | Popper, *The Logic of Scientific Discovery* (1934, DOI: 10.4324/9780203994627) — falsificationism; Deming / PDCA cycle (1950) |
+| Loop-back on failure | Popper — conjecture and refutation; Lewin, *Action Research* (1946, DOI: 10.1111/j.1540-4560.1946.tb02295.x); Schön, *The Reflective Practitioner* (1983, DOI: 10.4324/9781315237473) |
+| Verification = what would falsify this | Popper — falsifiability as the demarcation criterion (*Logic of Scientific Discovery*, §§6–9) |
+| ≥ 2 hypotheses per observation | Feyerabend, *Against Method* (1975, DOI: 10.2307/j.ctt17kkc4t) — epistemological anarchism; Toulmin, *The Uses of Argument* (1958, DOI: 10.1017/CBO9780511840005) |
+| Per-claim evidence annotation | Toulmin — grounds / warrant / backing / qualifier (*The Uses of Argument*, ch. 3); Goldman, "What is Justified Belief?" (1979, DOI: 10.1007/978-94-009-9479-1_1) — reliabilism |
+| Weakest-link confidence rule | Argument chain logic (Sosa, "How to Defeat Opposition to Moore," 1999, DOI: 10.1111/0029-4624.33.s13.7; Sosa, *A Virtue Epistemology*, 2007, DOI: 10.1093/acprof:oso/9780199292246.001.0001, ch. 2) — safety condition for knowledge |
+| Severity (urgency × direction) | CVSS (first.org/cvss); FMEA (ISO 31000) — risk = likelihood × impact |
+| Confidence (breadth × quality) | Bayesian belief updating (Jaynes, *Probability Theory*, 2003, DOI: 10.1017/CBO9780511790423); source criticism in historiography |
+| Calibrating rigor by reversibility | Bezos, 2015 shareholder letter — Type 1 / Type 2 decisions; Myers & Majd, "Abandonment Value and Project Life" (1990) — real options theory |
+| Adversarial verification | Red team / devil's advocate methodology; dialectical reasoning |
+| Cognitive bias check (5 biases) | Tversky & Kahneman, "Judgment under Uncertainty" (1974, *Science*, 185(4157), 1124–1131, DOI: 10.1126/science.185.4157.1124); Stanovich & West, dual-process theory (2000, DOI: 10.1017/S0140525X00003435); Kahneman, *Thinking, Fast and Slow* (2011) |
+| Formal fallacy check (7 fallacies) | Classical syllogistic logic (Aristotle, *Prior Analytics*); Hamblin, *Fallacies* (1970); Walton, *Informal Logic* (1989) — argumentation schemes and critical questions |
+| Anti-rationalization safeguards | Cialdini, *Influence* (1984, DOI: 10.4324/9781912282557) — persuasion principles; Kahneman — WYSIATI ("what you see is all there is") |
+| "Violating the letter violates the spirit" | Kant, *Groundwork of the Metaphysics of Morals* (1785, DOI: 10.1017/CBO9780511809637) — deontological ethics; rule-based ethical formalism |
 
 ## Quick Reference
 
@@ -469,6 +489,7 @@ Each component of this skill traces to established work in epistemology, decisio
 | Need to assign a severity/urgency label | Pick urgency (Critical / Major / Minor / Note) and direction (Gap / Strength); combine in bold |
 | Need to assign a confidence level | Apply breadth × quality; check the weakest-link rule |
 | Need to detect cognitive bias | Run the 5-question bias check |
+| Need to detect logical fallacy | Run the 7-question fallacy check |
 | Step-by-step tool available | One tool call per stage with the stage as the marker |
 | No step-by-step tool available | Section headers or numbered list; one stage per unit |
 | Red Flag triggered | Cancel the loop, restart from Observation |
