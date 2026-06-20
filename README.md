@@ -8,11 +8,32 @@ A structured-reasoning skill for AI agents. Forces every analysis, evaluation, a
 
 ## Install
 
+### skills.sh
+
 ```bash
 npx skills add hyuce/master-brain
 ```
 
 Works with Claude Code, Cursor, Codex, GitHub Copilot, Windsurf, and other agents supported by [skills.sh](https://skills.sh).
+
+### TomeVault
+
+[Install the TomeVault GitHub App](https://github.com/apps/tomevault) on this repo to get automatic security & quality grading on every push, plus cross-format sync (`CLAUDE.md`, `AGENTS.md`, `.cursorrules`, etc.) from one source.
+
+**Web scan:** paste `SKILL.md` content at [tomevault.io/scan](https://tomevault.io/scan) for an instant security and loadability verdict.
+
+**MCP:** connect any MCP client to `https://mcp.tomevault.io/` to search, fetch, and verify the skill from an agent:
+
+```json
+{
+  "mcpServers": {
+    "tomevault": {
+      "type": "http",
+      "url": "https://mcp.tomevault.io/"
+    }
+  }
+}
+```
 
 ## Security
 
