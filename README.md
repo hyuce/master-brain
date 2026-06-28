@@ -4,7 +4,7 @@
 
 [![skills.sh](https://skills.sh/b/hyuce/master-brain)](https://skills.sh/hyuce/master-brain)
 
-A structured-reasoning skill for AI agents. Forces every analysis, evaluation, and judgment to pass through a mandatory 5-stage loop with verification, preventing premature conclusions and skipped steps. Includes an assumption audit, calibration for decision reversibility, confidence levels, a cognitive bias check, and a formal fallacy check.
+A structured-reasoning skill for AI agents. Forces every analysis, evaluation, and judgment to pass through a mandatory 5-stage loop with verification, preventing premature conclusions and skipped steps. Configurable via parameters (rigor, evidence scope, audit depth, checks profile, confidence floor). Includes an assumption audit, calibration for decision reversibility, confidence levels, a cognitive bias check, and a formal fallacy check.
 
 ## Install
 
@@ -72,7 +72,7 @@ OBSERVATION → HYPOTHESIS → EVIDENCE → CONCLUSION → VERIFICATION
 | Hypothesis | What could it mean? | ≥ 2 candidate explanations |
 | Evidence | What supports/refutes each? | Cited facts (each annotated with confidence + source quality) |
 | Conclusion | What is the final judgment? | `[Urgency] [Direction]` label + confidence level + recommendation |
-| Verification | What would falsify this? | Pass / loop-back decision (includes bias check + fallacy check) |
+| Verification | What would falsify this? | Pass / loop-back decision (includes bias check + fallacy check); metadata table if `audit: Full` |
 
 Each stage is a distinct, demarcated unit.
 
@@ -109,12 +109,13 @@ Format: *"Therefore, **[Major Gap]** has been identified. **Confidence: High**."
 ## How to use it in a session
 
 1. Load the skill: read `SKILL.md`.
-2. Classify the decision: Type 1 / Type 2 / Trivial.
-3. Run the Assumption Audit: list, classify, and mark testable assumptions.
-4. State the task and the rule set in scope (or note that no rule set is available).
-5. For each stage, emit a marker (tool call, section header, or numbered item).
-6. On Verification pass: present the conclusion with `[Urgency] [Direction]` label + confidence + recommendation.
-7. On Verification fail: return to Observation and run the loop again.
+2. Set config: choose rigor, evidence scope, audit depth, checks profile, confidence floor (or use defaults).
+3. Classify the decision: Type 1 / Type 2 / Trivial.
+4. Run the Assumption Audit: list, classify, and mark testable assumptions.
+5. State the task and the rule set in scope (or note that no rule set is available).
+6. For each stage, emit a marker (tool call, section header, or numbered item).
+7. On Verification pass: present the conclusion with `[Urgency] [Direction]` label + confidence + recommendation. Append metadata table if `audit: Full`.
+8. On Verification fail: return to Observation and run the loop again.
 
 ## Worked examples
 

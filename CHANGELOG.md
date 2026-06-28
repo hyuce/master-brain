@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.4.0] — 2026-06-21
+
+### Added
+- **Configuration system** — 5 configurable parameters (rigor, evidence, audit, checks, confidenceFloor) with safe defaults. All-default config behaves identically to v1.3.0.
+- **Self-Audit Output** — when `audit: Full`, Analysis Metadata table appended to Conclusion documenting loop count, hypotheses, claim confidence distribution, check results, and evidence scope.
+- **Evidence scoping** — `evidence: Restricted` / Default / Extended controls which sources the agent may consult.
+- **Checks profile** — `checks: Minimal` (fallacy only) / Standard (fallacy + bias) / Full (+ assumption audit).
+- **Confidence floor** — `confidenceFloor: HighOnly` requires High confidence for every recommendation; `Relaxed` allows Low for Type 2.
+- New Quick Reference rows for config, audit, evidence scoping.
+
+### Changed
+- Calibrating Rigor now references config block (`config: rigor: Type 1`).
+- Conclusion stage documentation now mentions metadata table for Full audit.
+- Theoretical Foundations extended with self-audit / Tetlock calibration tracking row.
+- Version bumped to 1.4.0.
+
 ## [1.3.0] — 2026-06-21
 
 ### Added

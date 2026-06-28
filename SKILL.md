@@ -1,6 +1,6 @@
 ---
 name: master-brain
-version: "1.3.0"
+version: "1.4.0"
 description: Use when inferences or evaluations need to be evidence-backed; when prior reasoning felt premature or conclusion-first; when analyzing a document, claim, decision, or argument; when quality control of a prior analysis is needed; or when a judgment must hold up under adversarial scrutiny. Do NOT use for simple lookups, single-step operations, or routine tasks without a judgment component.
 ---
 
@@ -36,6 +36,62 @@ Analysis, decision, or evaluation needed?
 - Single-step operations ("rename this variable")
 - Routine code writing or refactoring
 - Tasks with no judgment component
+
+## Configuration
+
+Set analysis parameters before the loop. Every parameter has a safe default; omit any to use the default.
+
+```
+config:
+  rigor: Type 2        # Type 1 / Type 2 / Trivial
+  evidence: Default    # Restricted / Default / Extended
+  audit: Standard      # Standard / Full
+  checks: Standard     # Minimal / Standard / Full
+  confidenceFloor: Default  # Default / HighOnly / Relaxed
+```
+
+| Parameter | Default | Options | Effect |
+|-----------|---------|---------|--------|
+| rigor | Type 2 | Type 1 / Type 2 / Trivial | Loop depth. Type 1 forces all checks |
+| evidence | Default | Default / Restricted / Extended | Evidence sources. Restricted = user-provided only |
+| audit | Standard | Standard / Full | Output detail. Full = metadata table appended |
+| checks | Standard | Minimal / Standard / Full | Which checks run. Full = Fallacy + Bias + Assumption Audit |
+| confidenceFloor | Default | Default / HighOnly / Relaxed | Minimum confidence to recommend. HighOnly = all decisions need High |
+
+### Evidence scope
+
+| Scope | Available sources |
+|-------|-------------------|
+| Restricted | User-provided documents, data, references only |
+| Default | User sources + agent training knowledge |
+| Extended | User + agent + web search / API tools (where available) |
+
+### Audit output
+
+| Mode | Output |
+|------|--------|
+| Standard | `[Severity] [Direction]` + confidence + recommendation |
+| Full | Standard + Analysis Metadata table (loop count, hypotheses, claim confidence distribution, check results) |
+
+### Checks profile
+
+| Profile | Checks run |
+|---------|------------|
+| Minimal | Formal Fallacy Check only |
+| Standard | Cognitive Bias Check + Formal Fallacy Check |
+| Full | Bias + Fallacy + Assumption Audit |
+
+### Confidence floor
+
+| Floor | Rule |
+|-------|------|
+| Default | Type 1 → Medium+ required; Type 2/Trivial → any |
+| HighOnly | Every recommendation requires High confidence |
+| Relaxed | Type 2 accepts Low (exploratory analysis) |
+
+All-default: `Rigor: Type 2, Evidence: Default, Audit: Standard, Checks: Standard, ConfidenceFloor: Default`.
+
+To use: include a config block before the loop, or state parameters inline.
 
 ## The 5-Stage Loop
 
@@ -113,6 +169,7 @@ State the conclusion clearly, with a severity/urgency label, a confidence level,
 - For decisions: state the recommended action, the reason, the alternative, and the cost of not acting.
 - For QA: state pass/fail with reason.
 - Recommendations should be concrete and actionable. Use the modal form "should" or "must."
+- If `audit: Full`, append the Analysis Metadata table (see Self-Audit Output below).
 
 **Do not:**
 - Issue a conclusion without a `[Urgency] [Direction]` label.
@@ -160,15 +217,15 @@ The contract is the same regardless of implementation: **one stage per unit, no 
 
 ## Calibrating Rigor
 
-Before running the loop, classify the decision. Rigor scales with reversibility.
+Before running the loop, set `rigor` in the config block. Rigor scales with reversibility.
 
 ```
 Is the decision reversible at low cost?
-├─ No  → IRREVERSIBLE (Type 1) — run the FULL loop with high rigor.
+├─ No  → config: rigor: Type 1 — run the FULL loop with high rigor.
 │        Examples: choosing a database, signing a contract, hiring, deleting production data.
-├─ Yes, but with non-trivial cost → REVERSIBLE (Type 2) — run the loop, accept that speed matters.
+├─ Yes, but with non-trivial cost → config: rigor: Type 2 — run the loop, accept that speed matters.
 │        Examples: refactoring a function, drafting a document, picking a library.
-└─ Yes, with negligible cost → TRIVIAL — Observation + Conclusion may suffice; document the abbreviated path.
+└─ Yes, with negligible cost → config: rigor: Trivial — Observation + Conclusion may suffice; document the abbreviated path.
 ```
 
 **Implications:**
@@ -401,6 +458,38 @@ Run alongside the Cognitive Bias Check before issuing the Conclusion, and again 
 
 If any check fails, return to Stage 3 (Evidence) and re-collect.
 
+## Self-Audit Output
+
+When `audit: Full`, append an Analysis Metadata table after the Conclusion. This table documents what the loop produced and which checks it passed, making every conclusion auditable.
+
+The agent generates this automatically from the loop's internal state.
+
+```markdown
+---
+### Analysis Metadata
+
+| Metric | Value |
+|--------|-------|
+| Loop iterations | 1 |
+| Hypotheses generated | 3 |
+| Evidence claims collected | 8 |
+| Claims with High confidence | 5 |
+| Claims with Medium confidence | 2 |
+| Claims with Low confidence | 1 |
+| Checks profile | Standard |
+| Cognitive bias check | Pass |
+| Formal fallacy check | Pass |
+| Assumption Audit | Skipped (checks: Standard) |
+| High-risk assumptions identified | 2 |
+| High-risk assumptions verified | 2 |
+| Evidence scope | Default |
+| Weakest-link confidence | Medium |
+| Rule set used | Runtime-constructed |
+| Domain rules file | None |
+```
+
+The metadata table is **read-only documentation** of the analysis — it records what was done but does not change the conclusion. If `audit: Standard`, omit the table.
+
 ## Red Flags — STOP and Restart the Loop
 
 If any of these occur, **cancel the current loop and restart from Observation:**
@@ -474,6 +563,7 @@ Each component of this skill traces to established work in epistemology, decisio
 | Adversarial verification | Red team / devil's advocate methodology; dialectical reasoning |
 | Cognitive bias check (5 biases) | Tversky & Kahneman, "Judgment under Uncertainty" (1974, *Science*, 185(4157), 1124–1131, DOI: 10.1126/science.185.4157.1124); Stanovich & West, dual-process theory (2000, DOI: 10.1017/S0140525X00003435); Kahneman, *Thinking, Fast and Slow* (2011) |
 | Formal fallacy check (7 fallacies) | Classical syllogistic logic (Aristotle, *Prior Analytics*); Hamblin, *Fallacies* (1970); Walton, *Informal Logic* (1989) — argumentation schemes and critical questions |
+| Self-audit / analysis metadata | Tetlock, *Expert Political Judgment* (2005, DOI: 10.1515/9780691185972) — calibration tracking; Kahneman — WYSIATI; reproducibility practices in metodoloji |
 | Anti-rationalization safeguards | Cialdini, *Influence* (1984, DOI: 10.4324/9781912282557) — persuasion principles; Kahneman — WYSIATI ("what you see is all there is") |
 | "Violating the letter violates the spirit" | Kant, *Groundwork of the Metaphysics of Morals* (1785, DOI: 10.1017/CBO9780511809637) — deontological ethics; rule-based ethical formalism |
 
@@ -483,11 +573,13 @@ Each component of this skill traces to established work in epistemology, decisio
 |-----------|--------|
 | Single document, claim, or decision to analyze | Run the full 5-stage loop |
 | Complex multi-step decision | Observation → Hypothesis → Evidence → Conclusion → Verification |
-| Irreversible / one-way-door decision | Full loop + bias check + Medium-or-High confidence required |
+| Irreversible / one-way-door decision | Full loop + all checks + Medium-or-High confidence required |
 | Trivial / fully reversible decision | Observation + Conclusion may suffice; document the path |
 | Quality control of a prior analysis | Run Verification against the rule set in scope |
 | Need to assign a severity/urgency label | Pick urgency (Critical / Major / Minor / Note) and direction (Gap / Strength); combine in bold |
-| Need to assign a confidence level | Apply breadth × quality; check the weakest-link rule |
+| Need to set analysis parameters | Include a config block before the loop |
+| Need to see what the loop produced | Set `audit: Full` for metadata table |
+| Need to limit evidence sources | Set `evidence: Restricted` |
 | Need to detect cognitive bias | Run the 5-question bias check |
 | Need to detect logical fallacy | Run the 7-question fallacy check |
 | Step-by-step tool available | One tool call per stage with the stage as the marker |
