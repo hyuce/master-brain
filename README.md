@@ -146,4 +146,4 @@ Each component of the skill traces to established work in epistemology, decision
 ## Related
 
 - `SKILL.md` — full skill content with the 5-stage loop, Calibrating Rigor, Worked Examples, Severity / Urgency Guidance, Confidence Level, Combining table, Bias Check, Fallacy Check, Red Flags, and Common Mistakes.
-- `test.md` — end-to-end capability demonstration covering all skill features in a single self-contained scenario.
+- `sample_output_with_notes.md` — end-to-end capability demonstration covering all skill features in a single self-contained scenario.
